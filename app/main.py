@@ -3,9 +3,10 @@ from pydantic import BaseModel
 from app.model.model import predict_pipeline
 from app.model.model import __version__ as model_version
 from PIL import Image,UnidentifiedImageError
+from pillow_heif import register_heif_opener
 import io
 import os
-import imghdr
+import pyheif
 
 app = FastAPI()
 
@@ -24,14 +25,22 @@ def home():
 
 @app.post("/predict", response_model= DictOut)
 async def upload_image(file: UploadFile = File(...)):
+    
     contents = await file.read()
     
-    # image_format = imghdr.what(None, h=contents)
-    # if image_format is None:
-    #      raise HTTPException(status_code=400, detail='Invalid file format.')
+    register_heif_opener()    
+    # jpg_file = os.path.basename(file.filename).replace(".HEIC", ".jpg")    
+    # print('*********************',jpg_file,'***********************')
+
+    # img = Image.open(io.BytesIO(contents))
+    # img.save(jpg_file)
     
-    img = Image.open(io.BytesIO(contents))
-    
+    try:
+        img = Image.open(io.BytesIO(contents))
+        
+    except Exception as e:
+          raise HTTPException(status_code=400, detail="The uploaded file is not an image. Please upload a valid image file.")
+
     
 
     # if image_format not in ["jpeg", "png", "bmp", "tiff", "gif", "webp"]:
@@ -46,9 +55,17 @@ async def upload_image(file: UploadFile = File(...)):
         
     # else:
         
-    predictions = predict_pipeline(img)
+    predictions= predict_pipeline(img,contents)
     
-    return DictOut(clas=predictions)
+    # img_bytes = io.BytesIO()
+    # processed_img.save(img_bytes, format="JPEG")
+    # img_bytes.seek(0)
+    
+    
+    
+    
+    
+    return DictOut(clas=predictions) #, img=img_bytes.getvalue()
         
     
 
