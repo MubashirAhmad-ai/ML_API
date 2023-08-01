@@ -23,7 +23,8 @@ classes = [
     'Partition'
     ]
 
-def predict_pipeline(img):
+def predict_pipeline(img,contents):
+
     resized_image = img.resize((640, 640))
     results = model(resized_image)
     boxes = results[0].boxes
@@ -36,5 +37,13 @@ def predict_pipeline(img):
 
     class_dict = dict(class_dict)
     
-    return class_dict
+    # for class_name, class_data in class_dict.items():
+    #     for confidence in class_data['confidence']:
+    #         box = boxes[class_data['count']]
+    #         img = Image.open(img)
+    #         img.draw_bounding_box(box.tolist(), class_name, confidence)
+
+    
+    
+    return class_dict #, img
 

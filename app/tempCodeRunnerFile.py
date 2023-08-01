@@ -1,3 +1,2 @@
-from PIL import Image
-# from ultralytics import YOLO
-# import numpy as np
+from app.model.model import predict_pipeline
+from app.model.model import __version__ as model_version
