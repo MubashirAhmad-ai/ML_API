@@ -1,5 +1,6 @@
 from pathlib import Path
 from ultralytics import YOLO
+
 from PIL import Image
 from collections import defaultdict
 
@@ -27,6 +28,9 @@ def predict_pipeline(img,contents):
 
     resized_image = img.resize((640, 640))
     results = model(resized_image)
+    model.predict(resized_image, save=True,save_txt=True)
+
+    
     boxes = results[0].boxes
     class_dict = defaultdict(lambda: {'count': 0, 'confidence': []})
     

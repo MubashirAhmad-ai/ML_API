@@ -6,7 +6,7 @@ from PIL import Image,UnidentifiedImageError
 from pillow_heif import register_heif_opener
 import io
 import os
-import pyheif
+#import pyheif
 
 app = FastAPI()
 

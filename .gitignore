@@ -1,2 +1,6 @@
-yolov5_env
-.DS_Store
+# Ignore files and directories that start with the name "link_api"
+link_api/
+
+# Other files and directories to ignore
+*.DS_Store
+__pycache__/
