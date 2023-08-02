@@ -28,7 +28,7 @@ def predict_pipeline(img,contents):
 
     resized_image = img.resize((640, 640))
     results = model(resized_image)
-    model.predict(resized_image, save=True,save_txt=True)
+    #model.predict(resized_image, save=True,save_txt=True)
     print('********************************************This the updated version and continuous integration is working************** ')
     
     boxes = results[0].boxes
