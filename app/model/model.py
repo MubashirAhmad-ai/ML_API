@@ -29,7 +29,7 @@ def predict_pipeline(img,contents):
     resized_image = img.resize((640, 640))
     results = model(resized_image)
     #model.predict(resized_image, save=True,save_txt=True)
-    print('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+    print('this is a test line to test some functionality')
     
     boxes = results[0].boxes
     class_dict = defaultdict(lambda: {'count': 0, 'confidence': []})
