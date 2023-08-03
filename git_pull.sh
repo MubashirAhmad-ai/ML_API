@@ -2,6 +2,6 @@
 
 
 
-cd /Users/mubashirahmad/BDTI_Lab/Projects/LINK/ML_API
+cd /Users/bus-admin/Desktop/Mubashir/ML_API
 
 git pull origin main

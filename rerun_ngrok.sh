@@ -4,10 +4,10 @@ if pgrep -x "ngrok" > /dev/null; then
 fi
 
 
-ngrok http 80 --log=stdout | while read -r line; do
+ngrok http 8001 --log=stdout | while read -r line; do
     if [[ $line == *"msg=\"started tunnel\""* ]]; then
         ngrok_url=$(echo "$line" | grep -oE 'https://[a-zA-Z0-9.-]+')
-        slack_webhook_url="https://hooks.slack.com/services/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"
+        slack_webhook_url="https://hooks.slack.com/services/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"
         curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"New ngrok URL: $ngrok_url\"}" "$slack_webhook_url"
         echo "Captured ngrok URL: $ngrok_url"
         break
