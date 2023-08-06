@@ -8,7 +8,7 @@ import io
 import os
 #import pyheif
 
-app = FastAPI()
+app = FastAPI(title='Link API')
 
 
 class ImgIn(BaseModel):
