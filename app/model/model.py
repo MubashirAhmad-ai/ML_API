@@ -1,6 +1,7 @@
 from pathlib import Path
 from ultralytics import YOLO
-
+import shutil
+from itertools import repeat
 from PIL import Image
 from collections import defaultdict
 
@@ -27,27 +28,23 @@ classes = [
 def predict_pipeline(img,contents):
 
     resized_image = img.resize((640, 640))
-    results = model(resized_image)
-    #model.predict(resized_image, save=True,save_txt=True)
+    # results = model(resized_image)
+    results = model.predict(resized_image, save=True,save_txt=True)
     
+    initial_path = results[0].save_dir+'/' + results[0].path
+    start_index = initial_path.find("/detect/predict")
+    intermediate_path = initial_path[start_index:]
+    final_path = 'http://localhost:8080'+intermediate_path 
     
     boxes = results[0].boxes
-    class_dict = defaultdict(lambda: {'count': 0, 'confidence': []})
+    class_dict = defaultdict(lambda: {'count': 0, 'confidence': [], 'image_url':''})
     
-    for class_num, confidence in zip(boxes.cls, boxes.conf):
+    for class_num, confidence, image_url in zip(boxes.cls, boxes.conf,repeat(final_path, len(boxes))):
         class_num = int(class_num.item())
         class_dict[classes[class_num]]['count'] += 1
         class_dict[classes[class_num]]['confidence'].append(confidence.item())
-
+        class_dict[classes[class_num]]['image_url'] = image_url
     class_dict = dict(class_dict)
     
-    # for class_name, class_data in class_dict.items():
-    #     for confidence in class_data['confidence']:
-    #         box = boxes[class_data['count']]
-    #         img = Image.open(img)
-    #         img.draw_bounding_box(box.tolist(), class_name, confidence)
-
-    
-    
-    return class_dict #, img
+    return class_dict 
 
