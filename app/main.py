@@ -5,7 +5,8 @@ from app.model.model import __version__ as model_version
 from PIL import Image,UnidentifiedImageError
 from pillow_heif import register_heif_opener
 import io
-import os
+import base64
+import shutil
 #import pyheif
 
 app = FastAPI(title='Link API')
@@ -29,11 +30,6 @@ async def upload_image(file: UploadFile = File(...)):
     contents = await file.read()
     
     register_heif_opener()    
-    # jpg_file = os.path.basename(file.filename).replace(".HEIC", ".jpg")    
-    # print('*********************',jpg_file,'***********************')
-
-    # img = Image.open(io.BytesIO(contents))
-    # img.save(jpg_file)
     
     try:
         img = Image.open(io.BytesIO(contents))
@@ -41,31 +37,15 @@ async def upload_image(file: UploadFile = File(...)):
     except Exception as e:
           raise HTTPException(status_code=400, detail="The uploaded file is not an image. Please upload a valid image file.")
 
-    
 
-    # if image_format not in ["jpeg", "png", "bmp", "tiff", "gif", "webp"]:
-    #     image_format = "jpeg"
-    #     image = Image.open(io.BytesIO(contents))
-    #     image = image.convert("RGB")
-    #     converted_image = io.BytesIO()
-    #     image.save(converted_image, format="JPEG")
-    #     converted_image.seek(0)
-    #     image = Image.open(converted_image)
-    #     predictions = predict_pipeline(image) 
-        
-    # else:
         
     predictions= predict_pipeline(img,contents)
     
-    # img_bytes = io.BytesIO()
-    # processed_img.save(img_bytes, format="JPEG")
-    # img_bytes.seek(0)
-    
-    
-    
-    
-    
-    return DictOut(clas=predictions) #, img=img_bytes.getvalue()
         
+    # image_path = "/Users/mubashirahmad/BDTI_Lab/Projects/LINK/ML_API/runs/detect/predict/image0.jpg"
+    # image = Image.open(image_path)
+    # image_base64 = base64.b64encode(image.tobytes()).decode("utf-8")
+    # return DictOut(clas=predictions, image=image_base64) 
     
+    return DictOut(clas=predictions) #, image=image_base64)  
 
