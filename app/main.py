@@ -46,18 +46,18 @@ async def upload_image(file: UploadFile = File(...)):
     predictions, stored_image_path = predict_pipeline(img,contents)
      
     
-    image = Image.open(stored_image_path)
+    #image = Image.open(stored_image_path)
     
-    image_base64 = base64.b64encode(image.tobytes()).decode("utf-8")
-    return DictOut(clas=predictions, image=image_base64) 
+    #image_base64 = base64.b64encode(image.tobytes()).decode("utf-8")
+    return DictOut(clas=predictions)#, image=image_base64) 
     
     
     
 
 
-@app.get("/image")
-async def get_image():
-    if not os.path.exists(stored_image_path):
-        raise HTTPException(status_code=404, detail="Image not found")
+# @app.get("/image")
+# async def get_image():
+#     if not os.path.exists(stored_image_path):
+#         raise HTTPException(status_code=404, detail="Image not found")
 
-    return FileResponse(stored_image_path)
+#     return FileResponse(stored_image_path)
