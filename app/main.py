@@ -56,6 +56,7 @@ async def upload_image(image_file: UploadFile = File(...), audio_file: UploadFil
             image_prediction_empty = False
     
     if audio_file is not None:
+        
         try:
             audio_contents = await audio_file.read()
 
@@ -84,26 +85,27 @@ async def upload_image(image_file: UploadFile = File(...), audio_file: UploadFil
     response_data = {
         'Result':{
             "Image": image_predictions,
-            "Audio":"No",
-            "Item": "",
-            "Type": "",
-            "Measurement": "",
-            "Price": "",
-            "Description": ""
+            "Audio": {  "Audio_available":"No",
+                        "Item": "",
+                        "Type": "",
+                        "Measurement": "",
+                        "Price": "",
+                        "Description": ""
+            }
         }
     }
     if audio_predictions:
         audio_predictions = json.loads(audio_predictions) 
         
         if audio_file is None:
-            response_data['Result']["Audio"] = 'No'
+            response_data['Result']['Audio']["Audio_available"] = 'No'
         else:
-            response_data['Result']["Audio"] = 'Yes'
-        response_data['Result']["Item"] = audio_predictions.get("Item","")
-        response_data['Result']["Type"] = audio_predictions.get("Type", "")
-        response_data['Result']["Measurement"] = audio_predictions.get("Measurement", "")
-        response_data['Result']["Price"] = audio_predictions.get("Price", "")
-        response_data['Result']["Description"] = audio_predictions.get("Description", "")
+            response_data['Result']['Audio']["Audio_available"] = 'Yes'
+        response_data['Result']['Audio']["Item"] = audio_predictions.get("Item","")
+        response_data['Result']['Audio']["Type"] = audio_predictions.get("Type", "")
+        response_data['Result']['Audio']["Measurement"] = audio_predictions.get("Measurement", "")
+        response_data['Result']['Audio']["Price"] = audio_predictions.get("Price", "")
+        response_data['Result']['Audio']["Description"] = audio_predictions.get("Description", "")
     
     return DictOut(**response_data)
 

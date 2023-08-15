@@ -101,14 +101,17 @@ def loging_prediction(results, creation_times_file, creation_times):
 def formating_api_response(results, relative_path):
     final_path = 'http://localhost:8080/' + relative_path
     boxes = results[0].boxes
-    class_dict = defaultdict(lambda: {'count': 0, 'confidence': [], 'image_url': ''})
+    class_info = defaultdict(lambda: {'Count': 0, 'Confidence': []})
 
     for class_num, confidence in zip(boxes.cls, boxes.conf):
         class_num = int(class_num.item())
-       
-        class_dict[classes[class_num]]['count'] += 1
-        class_dict[classes[class_num]]['confidence'].append(confidence.item())
-        class_dict[classes[class_num]]['image_url'] = final_path
+        class_info[classes[class_num]]['Count'] += 1
+        class_info[classes[class_num]]['Confidence'].append(confidence.item())
 
-    class_dict = dict(class_dict)  #
-    return class_dict
+    class_info = dict(class_info)  
+    
+    response = {
+        'Image_URL': final_path,
+        'Detections': class_info
+    }
+    return response
