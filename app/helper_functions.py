@@ -44,7 +44,7 @@ def delete_old_subdirectories(creation_times_file, creation_times):
     current_time = datetime.now()
     for subdirectory, creation_time in list(creation_times.items()):
         time_difference = current_time - creation_time
-        if time_difference >= timedelta(minutes=1):
+        if time_difference >= timedelta(hours=24):
             if os.path.exists(os.path.abspath(os.getcwd())+'/'+subdirectory):
                 os.remove(os.path.abspath(os.getcwd())+'/'+subdirectory)
                 del creation_times[subdirectory] 
@@ -84,14 +84,30 @@ def loging_prediction(results, creation_times_file, creation_times):
     return relative_path
 
 
-def formating_api_response(results,relative_path):
-    final_path = 'http://localhost:8080/'+relative_path
+# def formating_api_response(results,relative_path):
+#     final_path = 'http://localhost:8080/'+relative_path
+#     boxes = results[0].boxes
+#     print('boxes[0] >>>>', boxes)
+#     class_dict = defaultdict(lambda: {'count': 0, 'confidence': [], 'image_url':''})
+#     for class_num, confidence, image_url in zip(boxes.cls, boxes.conf,repeat(final_path, len(boxes))):
+#         class_num = int(class_num.item())
+#         class_dict[classes[class_num]]['count'] += 1
+#         class_dict[classes[class_num]]['confidence'].append(confidence.item())
+#         class_dict[classes[class_num]]['image_url'] = image_url
+#         class_dict = dict(class_dict)
+#     return class_dict
+
+
+def formating_api_response(results, relative_path):
+    final_path = 'http://localhost:8080/' + relative_path
     boxes = results[0].boxes
-    class_dict = defaultdict(lambda: {'count': 0, 'confidence': [], 'image_url':''})
-    for class_num, confidence, image_url in zip(boxes.cls, boxes.conf,repeat(final_path, len(boxes))):
+    class_dict = defaultdict(lambda: {'count': 0, 'confidence': [], 'image_url': ''})
+
+    for class_num, confidence in zip(boxes.cls, boxes.conf):
         class_num = int(class_num.item())
         class_dict[classes[class_num]]['count'] += 1
         class_dict[classes[class_num]]['confidence'].append(confidence.item())
-        class_dict[classes[class_num]]['image_url'] = image_url
-        class_dict = dict(class_dict)
+        class_dict[classes[class_num]]['image_url'] = final_path
+
+    class_dict = dict(class_dict)  # Convert defaultdict to a regular dictionary
     return class_dict
