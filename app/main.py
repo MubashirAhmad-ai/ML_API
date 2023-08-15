@@ -94,6 +94,7 @@ async def upload_image(image_file: UploadFile = File(...), audio_file: UploadFil
     }
     if audio_predictions:
         audio_predictions = json.loads(audio_predictions) 
+        
         if audio_file is None:
             response_data['Result']["Audio"] = 'No'
         else:
