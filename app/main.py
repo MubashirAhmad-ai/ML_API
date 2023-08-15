@@ -11,11 +11,7 @@ import base64
 import shutil
 #import pyheif
 
-<<<<<<< HEAD
 app = FastAPI(title='Link API')
-=======
-app = FastAPI(title ='Link API')
->>>>>>> 44550dbd59ce519704f6711a80aacf39527c0ef1
 
 
 class ImgIn(BaseModel):
