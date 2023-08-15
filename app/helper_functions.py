@@ -105,10 +105,10 @@ def formating_api_response(results, relative_path):
 
     for class_num, confidence in zip(boxes.cls, boxes.conf):
         class_num = int(class_num.item())
-        print(results)
+       
         class_dict[classes[class_num]]['count'] += 1
         class_dict[classes[class_num]]['confidence'].append(confidence.item())
         class_dict[classes[class_num]]['image_url'] = final_path
 
-    class_dict = dict(class_dict)  # Convert defaultdict to a regular dictionary
+    class_dict = dict(class_dict)  #
     return class_dict
