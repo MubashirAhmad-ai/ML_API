@@ -46,5 +46,5 @@ def predict_pipeline(img,contents):
         class_dict[classes[class_num]]['image_url'] = image_url
     class_dict = dict(class_dict)
     
-    return class_dict 
+    return class_dict, initial_path 
 
