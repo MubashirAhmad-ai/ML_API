@@ -77,9 +77,10 @@ def image_preprocessing(img):
 def loging_prediction(results, creation_times_file, creation_times):
     initial_path = results[0].save_dir+'/' + results[0].path
     absolute_path,relative_path  = copy_unique_file(initial_path, "predicted_images/")
-    delete_directory('runs')
+    
     creation_times[relative_path] = datetime.now()
     save_creation_times(creation_times_file,creation_times)
+    delete_directory('runs')
     return relative_path
 
 

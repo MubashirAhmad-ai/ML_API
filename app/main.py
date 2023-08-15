@@ -61,6 +61,7 @@ async def upload_image(image_file: UploadFile = File(...), audio_file: UploadFil
 
             if is_audio_file(audio_file.filename):
                 audio_predictions = speechToText_model(audio_file, audio_contents)
+                
                 #audio_predictions = '{"Item":"test item"}'
                 audio_file_error = False
             else:
@@ -94,6 +95,7 @@ async def upload_image(image_file: UploadFile = File(...), audio_file: UploadFil
 
     if audio_predictions:
         audio_predictions = json.loads(audio_predictions) 
+        print(audio_predictions)
         if audio_file is None:
             response_data['Result']["Audio"] = 'No'
         else:

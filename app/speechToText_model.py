@@ -9,7 +9,7 @@ openai.api_key = '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'
 def process_audio_file(temperature, audio_file):
     system_prompt =  """You have been tasked with refining the accuracy of transcribed text related to a list of items and their details. Your primary responsibilities include:\
                     Rectifying any spelling errors in specific terms such as "Door," "Water Closet," "Partitions," "Window," "Urinal," "Ceiling Panels," "Floor Tiles," and "Pounds."\
-                    Identifying and extracting the following attributes from the corrected text: \
+                    Identifying and extract the following attributes from the corrected text: \
                     Item \
                     Type \
                     Measurement \
@@ -17,10 +17,10 @@ def process_audio_file(temperature, audio_file):
                     Description\
                     Your process should follow these guidelines:\
                     Correct any spelling discrepancies in the text.\
-                    Extract the aforementioned attributes from the text.\
-                    If the item price is mentioned, convert it to numeric; otherwise, label it as "not mentioned."\
-                    If a measurement is specified, convert it to numeric with suitable units; otherwise, mark it as "not mentioned."\
-                    Provide a concise two-line description for each item.\
+                    Extract the aforementioned attributes from the text keeping the attributes exact as above.\
+                    If the Price is mentioned, convert it to numeric; otherwise, label it as "not mentioned."\
+                    If a Measurement is specified, convert it to numeric with suitable units; otherwise, mark it as "not mentioned."\
+                    Provide a concise two-line description for Description attribute\
                     The final output should be formatted in JSON format."""
     
     response = openai.ChatCompletion.create(
