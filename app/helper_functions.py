@@ -44,7 +44,7 @@ def delete_old_subdirectories(creation_times_file, creation_times):
     current_time = datetime.now()
     for subdirectory, creation_time in list(creation_times.items()):
         time_difference = current_time - creation_time
-        if time_difference >= timedelta(minutes=1):
+        if time_difference >= timedelta(minutes=24):
             if os.path.exists(os.path.abspath(os.getcwd())+'/'+subdirectory):
                 os.remove(os.path.abspath(os.getcwd())+'/'+subdirectory)
                 del creation_times[subdirectory] 
@@ -90,6 +90,7 @@ def formating_api_response(results,relative_path):
     class_dict = defaultdict(lambda: {'count': 0, 'confidence': [], 'image_url':''})
     for class_num, confidence, image_url in zip(boxes.cls, boxes.conf,repeat(final_path, len(boxes))):
         class_num = int(class_num.item())
+        print(results)
         class_dict[classes[class_num]]['count'] += 1
         class_dict[classes[class_num]]['confidence'].append(confidence.item())
         class_dict[classes[class_num]]['image_url'] = image_url
