@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent
 
 model = YOLO(f'{BASE_DIR}/yolov8n-{__version__}.pt')
 
-creation_times_file = "creation_times.json"  #creating json file to log the predicted image for deletion
+creation_times_file = "creation_times.json" 
 
 creation_times = load_creation_times(creation_times_file)
 
@@ -18,7 +18,7 @@ save_creation_times(creation_times_file,creation_times)
 
 
 def predict_pipeline(img,contents):
-    create_directory('predicted_images') # creating directory to save the predicted images 
+    create_directory('predicted_images') 
     processed_image = image_preprocessing(img)
     # results = model(resized_image)
     results = model.predict(processed_image, save=True,save_txt=True)
