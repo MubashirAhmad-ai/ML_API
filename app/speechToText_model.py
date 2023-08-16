@@ -4,7 +4,7 @@ import os
 from app.helper_functions import create_directory, delete_directory
 
 
-openai.api_key = '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'
+openai.api_key = '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'
 
 def process_audio_file(temperature, audio_file):
     system_prompt =  """You have been tasked with refining the accuracy of transcribed text related to a list of items and their details. Your primary responsibilities include:\
@@ -24,7 +24,7 @@ def process_audio_file(temperature, audio_file):
                     The final output should be formatted in JSON format."""
     
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0301",
         temperature=temperature,
         messages=[
             {
