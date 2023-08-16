@@ -4,3 +4,9 @@ link_api/
 # Other files and directories to ignore
 *.DS_Store
 __pycache__/
+
+/creation_times.json
+/predicted_images/
+/audio_files/
+/git_pull.sh
+/rerun_ngrok.sh
