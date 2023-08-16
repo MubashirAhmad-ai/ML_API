@@ -23,6 +23,7 @@ def predict_pipeline(img,contents):
     # results = model(resized_image)
     
     results = model.predict(processed_image, save=True,save_txt=True)
+    
     image_relative_path = loging_prediction(results,creation_times_file, creation_times)
     response_dict = formating_api_response(results,image_relative_path)
     return response_dict, image_relative_path
