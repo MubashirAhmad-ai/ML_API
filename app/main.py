@@ -115,9 +115,10 @@ def is_audio_file(filename):
 
 from typing import List
 
-@app.post("/predict", response_model=DictOut)
+@app.post("/predict", summary="Upload Image(s) and Audio File", response_model=DictOut)
 async def upload_images(images: List[UploadFile] = File(...), audio_file: UploadFile = File(None)):
-
+    if len(images) > 10:
+        raise HTTPException(status_code=400, detail=f"You have uploaded {len(images)} images. The limit is 10.")
     image_results = []
     
     for idx, image_file in enumerate(images):
