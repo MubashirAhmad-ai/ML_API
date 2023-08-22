@@ -82,8 +82,7 @@ def loging_prediction(results, creation_times_file, creation_times):
     
     creation_times[relative_path] = datetime.now()
     save_creation_times(creation_times_file,creation_times)
-    #delete_directory('runs')
-    os.remove(initial_path)
+    delete_directory(results[0].save_dir)
     return relative_path
 
 

@@ -143,8 +143,6 @@ async def upload_images(images: List[UploadFile] = File(...), audio_file: Upload
             # Append the image results to the list
             image_results.append({
                 f"Image_{idx+1}": image_predictions
-                
-                
             })
 
     if image_file_error:
@@ -213,7 +211,6 @@ async def upload_images(images: List[UploadFile] = File(...), audio_file: Upload
         response_data['Result']['Audio']["Location"] = audio_predictions.get("Location", "")
         response_data['Result']['Audio']["Summary"] = audio_predictions.get("Summary", "")
     
-    delete_directory('audio_files')
     return DictOut(**response_data)
 
 
