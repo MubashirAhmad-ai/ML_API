@@ -4,7 +4,7 @@ import os
 from app.helper_functions import create_directory, delete_directory
 
 
-openai.api_key = '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'
+openai.api_key = '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'
 
 def process_audio_file(temperature, audio_file):
     system_prompt =  """You have been tasked with refining the accuracy of transcribed text related to a list of items and their details. Your primary responsibilities include:\

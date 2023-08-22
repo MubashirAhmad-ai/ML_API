@@ -28,7 +28,7 @@ def home():
     return{"Health Check": "OK", "Model_version": model_version}
 
 def is_audio_file(filename):
-    audio_extensions = ['mp3', 'wav', 'flac', 'ogg'] 
+    audio_extensions = ['mp3', 'wav', 'flac', 'ogg', 'aac', 'm4a'] 
     file_extension = filename.split('.')[-1].lower()
     return file_extension in audio_extensions
 

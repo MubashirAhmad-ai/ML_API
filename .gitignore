@@ -5,8 +5,9 @@ link_api/
 *.DS_Store
 __pycache__/
 
-/creation_times.json
-/predicted_images/
-/audio_files/
+
+predicted_images/
+audio_files/
 /git_pull.sh
-/rerun_ngrok.sh
+rerun_ngrok.sh
+/creation_times.json
