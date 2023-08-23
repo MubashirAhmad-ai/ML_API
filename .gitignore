@@ -1,13 +1,16 @@
 # Ignore files and directories that start with the name "link_api"
 link_api/
+predicted_images/
+audio_files/
 
 # Other files and directories to ignore
 *.DS_Store
-__pycache__/
+__pycache__
 
 
-predicted_images/
-audio_files/
-/git_pull.sh
+
+git_pull.sh
 rerun_ngrok.sh
-/creation_times.json
+creation_times.json
+
+
