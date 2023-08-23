@@ -1,26 +1,14 @@
-# FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
-# COPY ./requirements.txt /app/requirements.txt
 
-# RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+FROM python3.10.11
 
-# COPY ./app /app/app
-
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
-
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y libgl1-mesa-glx
-
-# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file
-COPY ./requirements.txt /app/requirements.txt
+COPY requirements.txt ./ 
 
-# Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application files
-COPY ./app /app/app
+copy . . 
+
+
+CMD ["uvicorn", "app,main:app", "--host", "0.0.0.0.0", "--port", "8000"]
