@@ -131,7 +131,7 @@ def formating_api_response(results, relative_path):
 
 
 
-openai.api_key = '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'
+openai.api_key = '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'
 
 def process_audio_file(temperature, audio_file):
     system_prompt =  """You have been tasked with refining the accuracy of transcribed text related to a list of items and their details. Your primary responsibilities include:\
