@@ -4,13 +4,10 @@ from app.model.model import predict_pipeline, creation_times_file, creation_time
 from app.helper_functions import  delete_old_subdirectories, generate_item_description, delete_directory
 from app.speechToText_model import speechToText_model
 from app.model.model import __version__ as model_version
-from PIL import Image,UnidentifiedImageError
+from PIL import Image
 from pillow_heif import register_heif_opener
 import io, json
-import librosa
 from fastapi.responses import FileResponse
-import base64
-import shutil
 from collections import defaultdict
 
 
